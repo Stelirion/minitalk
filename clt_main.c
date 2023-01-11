@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/11 14:30:14 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 14:42:20 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,19 @@ char	*int_to_bin(int chr)
 	bin = malloc((len) * sizeof (char));
 	while (len >= 0)
 	{
+
 		bin[len] = chr % 2 + '0';
 		chr = chr / 2;
 		len--;
 	}
+	bin = ft_strjoin_free(bin, "\0");
 	return (bin);
 }
 
 int	main(int argc, char **argv)
 {
 	int		pid;
+	int		j;
 	size_t	i;
 	char	*bin;
 	char	*str;
@@ -50,7 +53,13 @@ int	main(int argc, char **argv)
 	while (str[i])
 	{
 		bin = int_to_bin(str[i]);
-		ft_printf(" %s", bin);
+		j = 0;
+		while (bin[j])
+		{
+			ft_printf("%c", bin[j]);
+			kill(pid, (int)bin[j]);
+			j++;
+		}
 		i++;
 	}
 }
