@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/11 14:42:20 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 15:50:11 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int	main(int argc, char **argv)
 		while (bin[j])
 		{
 			ft_printf("%c", bin[j]);
-			kill(pid, (int)bin[j]);
+			if (bin[j] == '0')
+				kill(pid, SIGUSR2);
+			else if (bin[j] == '1')
+				kill(pid, SIGUSR1);
 			j++;
 		}
 		i++;
