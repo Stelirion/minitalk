@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/13 17:47:30 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 18:17:14 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,10 @@ char	*int_to_bin(char chr)
 	return (bin);
 }
 
-int	main(int argc, char **argv)
+int	send(int pid, int j, size_t i, char *str)
 {
-	int		pid;
-	int		j;
-	size_t	i;
 	char	*bin;
-	char	*str;
 
-	if (argc != 3)
-		return (ft_printf("Error\ninvalid number of args\n"));
-	pid = ft_atoi(argv[1]);
-	str = argv[2];
-	i = 0;
 	while (str[i])
 	{
 		bin = int_to_bin(str[i]);
@@ -64,4 +55,21 @@ int	main(int argc, char **argv)
 		free(bin);
 		i++;
 	}
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	int		pid;
+	int		j;
+	size_t	i;
+	char	*str;
+
+	if (argc != 3)
+		return (ft_printf("Error\ninvalid number of args\n"));
+	pid = ft_atoi(argv[1]);
+	str = argv[2];
+	i = 0;
+	j = 0;
+	send(pid, j, i, str);
 }
