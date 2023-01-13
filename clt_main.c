@@ -6,29 +6,21 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/11 15:50:11 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 17:47:30 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-char	*int_to_bin(int chr)
+char	*int_to_bin(char chr)
 {
-	int		tmp;
 	int		len;
 	char	*bin;
 
-	tmp = chr;
-	len = 0;
-	while (tmp)
-	{
-		tmp = tmp / 2;
-		len++;
-	}
+	len = 7;
 	bin = malloc((len) * sizeof (char));
 	while (len >= 0)
 	{
-
 		bin[len] = chr % 2 + '0';
 		chr = chr / 2;
 		len--;
@@ -56,13 +48,20 @@ int	main(int argc, char **argv)
 		j = 0;
 		while (bin[j])
 		{
-			ft_printf("%c", bin[j]);
 			if (bin[j] == '0')
-				kill(pid, SIGUSR2);
+			{
+				if (kill(pid, SIGUSR2) != 0)
+					return (ft_printf("Error\nSignal error"));
+			}
 			else if (bin[j] == '1')
-				kill(pid, SIGUSR1);
+			{
+				if (kill(pid, SIGUSR1) != 0)
+					return (ft_printf("Error\nSignal error"));
+			}
+			usleep(100);
 			j++;
 		}
+		free(bin);
 		i++;
 	}
 }
