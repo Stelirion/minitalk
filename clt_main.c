@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 18:09:30 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 18:14:42 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	action(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (info->si_pid == g_server_pid)
 	{
-		ft_printf("successfully received by server\n", 1);
+		ft_printf("\n\n____________________\nsuccessfully received by server\n", 1);
 		exit(0);
 	}
 }
