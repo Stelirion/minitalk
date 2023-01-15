@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 13:22:12 by ngennaro          #+#    #+#             */
-/*   Updated: 2022/12/18 13:22:27 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 00:50:42 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strjoin_free(char const *s1, char const *s2);
+size_t	ft_bin_to_int(char *str, int size);
+char	*ft_int_to_bin(size_t number, size_t len);
+size_t	ft_pwr(int i, int pwr);
 
 #endif

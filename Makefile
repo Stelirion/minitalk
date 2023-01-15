@@ -20,7 +20,7 @@ DIR_LIBFT	=	libft/
 
 # ---- Files ---- #
 
-HEAD	=	so_long.h
+HEAD	=	minitak.h
 
 SRV_SRCS	=	srv_main.c
 
@@ -34,7 +34,7 @@ INC			=	libft/headers/ft_printf.h libft/headers/get_next_line_bonus.h libft/head
 # ---- Compilation ---- #
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
 
 # ---- Commands ---- #
 

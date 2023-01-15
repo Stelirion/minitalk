@@ -6,36 +6,19 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/13 18:17:14 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 00:53:59 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-char	*int_to_bin(char chr)
-{
-	int		len;
-	char	*bin;
-
-	len = 7;
-	bin = malloc((len) * sizeof (char));
-	while (len >= 0)
-	{
-		bin[len] = chr % 2 + '0';
-		chr = chr / 2;
-		len--;
-	}
-	bin = ft_strjoin_free(bin, "\0");
-	return (bin);
-}
-
-int	send(int pid, int j, size_t i, char *str)
+int	send_msg(int pid, int j, size_t i, char *str)
 {
 	char	*bin;
 
 	while (str[i])
 	{
-		bin = int_to_bin(str[i]);
+		bin = ft_int_to_bin(str[i], 8);
 		j = 0;
 		while (bin[j])
 		{
@@ -58,18 +41,40 @@ int	send(int pid, int j, size_t i, char *str)
 	return (0);
 }
 
+int	send_len(int pid, int j, size_t len)
+{
+	char	*bin;
+
+	bin = ft_int_to_bin(len, 64);
+	j = 0;
+	while (bin[j])
+	{
+		if (bin[j] == '0')
+		{
+			if (kill(pid, SIGUSR2) != 0)
+				return (ft_printf("Error\nSignal error"));
+		}
+		else if (bin[j] == '1')
+		{
+			if (kill(pid, SIGUSR1) != 0)
+				return (ft_printf("Error\nSignal error"));
+		}
+		usleep(100);
+		j++;
+	}
+	free(bin);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	int		pid;
-	int		j;
-	size_t	i;
 	char	*str;
 
 	if (argc != 3)
 		return (ft_printf("Error\ninvalid number of args\n"));
 	pid = ft_atoi(argv[1]);
 	str = argv[2];
-	i = 0;
-	j = 0;
-	send(pid, j, i, str);
+	send_len(pid, 0, ft_strlen(str));
+	send_msg(pid, 0, 0, str);
 }
