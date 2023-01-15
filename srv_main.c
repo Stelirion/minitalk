@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 18:10:36 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 18:28:47 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*fill_str(char *str, char *new)
 	if (!str)
 	{
 		str = malloc(sizeof(char));
+		if (!str)
+			return (ft_printf("Error\na malloc fail"), 1);
 		str[0] = '\0';
 	}
 	chr[0] = (char)ft_bin_to_int(new, 8);
@@ -50,6 +52,8 @@ static void	action(int sig, siginfo_t *info, void *context)
 			return ;
 		}
 		str = fill_str(str, new);
+		if (!str)
+			exit(0);
 		byte = 0;
 	}
 }
