@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 18:28:47 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 18:31:26 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*fill_str(char *str, char *new)
 	{
 		str = malloc(sizeof(char));
 		if (!str)
-			return (ft_printf("Error\na malloc fail"), 1);
+			return (ft_printf("Error\na malloc fail"), NULL);
 		str[0] = '\0';
 	}
 	chr[0] = (char)ft_bin_to_int(new, 8);
