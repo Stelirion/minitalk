@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   binary.c                                           :+:      :+:    :+:   */
+/*   ft_binary.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 00:47:58 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 00:49:18 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 11:15:06 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ char	*ft_int_to_bin(size_t number, size_t len)
 {
 	char	*bin;
 
-	bin = malloc((len) * sizeof (char));
+	bin = malloc((len) * sizeof (char) + 1);
+	bin[len] = '\0';
 	while (len > 0)
 	{
 		len--;
 		bin[len] = number % 2 + '0';
 		number = number / 2;
 	}
-	bin = ft_strjoin_free(bin, "\0");
 	return (bin);
 }

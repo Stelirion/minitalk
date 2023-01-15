@@ -34,7 +34,7 @@ INC			=	libft/headers/ft_printf.h libft/headers/get_next_line_bonus.h libft/head
 # ---- Compilation ---- #
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS	=	-Wall -Wextra -Werror
 
 # ---- Commands ---- #
 
@@ -47,13 +47,15 @@ all		:	${CLT_NAME} ${SRV_NAME}
 
 # ---- Variables Rules ---- #
 
-${CLT_NAME}	:	${CLT_OBJS} ${addprefix ${DIR_LIBFT}, ${LIBFT}}
+${CLT_NAME}	:	${addprefix ${DIR_LIBFT}, ${LIBFT}} ${CLT_OBJS}
 			${CC} ${CFLAGS} -o ${CLT_NAME} ${CLT_OBJS} libft/libft.a
 
-$(SRV_NAME)	:	${SRV_OBJS} ${addprefix ${DIR_LIBFT}, ${LIBFT}}
+$(SRV_NAME)	:	${addprefix ${DIR_LIBFT}, ${LIBFT}} ${SRV_OBJS}
 			${CC} ${CFLAGS} -o ${SRV_NAME} ${SRV_OBJS} libft/libft.a
 
-${addprefix ${DIR_LIBFT}, ${LIBFT}}	:
+${addprefix ${DIR_LIBFT}, ${LIBFT}}	: libs
+
+libs :
 			make ${LIBFT} -C ${DIR_LIBFT}
 
 # ---- Compiled Rules ---- #
