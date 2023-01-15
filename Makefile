@@ -4,7 +4,7 @@
 
 # ---- Final Executable --- #
 
-SRV_NAME	=	serveur
+SRV_NAME	=	server
 
 CLT_NAME	=	client
 

@@ -6,11 +6,13 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 15:38:51 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 16:56:58 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+pid_t	g_server_pid;
 
 void	temp(void)
 {
@@ -67,19 +69,35 @@ int	end_msg(int pid)
 	return (0);
 }
 
+static void	action(int sig, siginfo_t *info, void *context)
+{
+	(void)sig;
+	(void)context;
+	if (info->si_pid == g_server_pid)
+	{
+		ft_printf("successfully received by server\n", 1);
+		exit(0);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int		pid;
-	char	*str;
+	char				*str;
+	struct sigaction	s_sigaction;
 
+	s_sigaction.sa_sigaction = action;
+	s_sigaction.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &s_sigaction, 0);
 	if (argc != 3)
 		return (ft_printf("Error\ninvalid number of args\n"));
-	pid = ft_atoi(argv[1]);
+	g_server_pid = ft_atoi(argv[1]);
 	str = argv[2];
 	if (str[0] == '\0')
 		return (1);
-	if (send_msg(pid, 0, 0, str) == 1)
+	if (send_msg(g_server_pid, 0, 0, str) == 1)
 		return (1);
-	if (end_msg(pid) == 1)
+	if (end_msg(g_server_pid) == 1)
 		return (1);
+	pause();
+	return (0);
 }

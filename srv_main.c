@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 15:46:18 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 17:02:11 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ static void	action(int sig, siginfo_t *info, void *context)
 	static int	byte;
 	static char	*str;
 
-	(void)info;
 	(void)context;
 	if (sig == 31)
 		new[byte] = '0';
 	else if (sig == 30)
 		new[byte] = '1';
-	byte++;
-	if (byte == 8)
+	if (++byte == 8)
 	{
 		if (ft_strncmp(new, "00000000", 8) == 0)
 		{
@@ -34,6 +32,7 @@ static void	action(int sig, siginfo_t *info, void *context)
 			free(str);
 			str = NULL;
 			byte = 0;
+			kill(info->si_pid, SIGUSR1);
 			return ;
 		}
 		if (!str)
@@ -51,10 +50,10 @@ static void	action(int sig, siginfo_t *info, void *context)
 int	main(void)
 {
 	struct sigaction	s_sigaction;
-	pid_t				pid;
+	pid_t				server_pid;
 
-	pid = getpid();
-	ft_printf("PID : %i\n", pid);
+	server_pid = getpid();
+	ft_printf("PID : %i\n", server_pid);
 	s_sigaction.sa_sigaction = action;
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &s_sigaction, 0);
