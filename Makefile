@@ -34,7 +34,7 @@ INC			=	libft/headers/ft_printf.h libft/headers/get_next_line_bonus.h libft/head
 # ---- Compilation ---- #
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS	=	-Wall -Wextra -Werror
 
 # ---- Commands ---- #
 
