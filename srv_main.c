@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 13:25:57 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 15:46:18 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,37 @@
 
 static void	action(int sig, siginfo_t *info, void *context)
 {
-	static char		new[8];
-	static char		len_bin[64];
-	char			chr[2];
-	static size_t	receve;
-	static int		byte;
-	static int		size;
-	static char		*str;
+	static char	new[8];
+	char		chr[2];
+	static int	byte;
+	static char	*str;
 
 	(void)info;
 	(void)context;
-	if (!byte)
-		byte = 0;
-	if (!size)
-		size = 0;
-	if (sig == 31 && size < 64)
-		len_bin[size] = '0';
-	else if (sig == 30 && size < 64)
-		len_bin[size] = '1';
-	else if (sig == 31 && size >= 64)
+	if (sig == 31)
 		new[byte] = '0';
-	else if (sig == 30 && size >= 64)
+	else if (sig == 30)
 		new[byte] = '1';
-	if (size < 64)
-		size++;
-	else
-		byte++;
+	byte++;
 	if (byte == 8)
 	{
+		if (ft_strncmp(new, "00000000", 8) == 0)
+		{
+			ft_printf("%s", str);
+			free(str);
+			str = NULL;
+			byte = 0;
+			return ;
+		}
 		if (!str)
 		{
 			str = malloc(sizeof(char));
 			str[0] = '\0';
 		}
-		if (!receve)
-			receve = 0;
 		chr[0] = (char)ft_bin_to_int(new, 8);
 		chr[1] = '\0';
 		str = ft_strjoin_free(str, chr);
 		byte = 0;
-		receve++;
-		if (receve == ft_bin_to_int(len_bin, 64))
-		{
-			ft_printf("%s", str);
-			if (ft_strncmp(str, "quit", 10) == 0)
-				exit(0);
-			free(str);
-			str = NULL;
-			size = 0;
-			receve = 0;
-		}
 	}
 }
 

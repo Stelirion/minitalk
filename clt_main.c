@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 13:29:57 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 15:38:51 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int	send_msg(int pid, int j, size_t i, char *str)
 			if (bin[j] == '0')
 			{
 				if (kill(pid, SIGUSR2) != 0)
-					return (ft_printf("Error\nSignal error"), 1);
+					return (ft_printf("Error\nSignal fail"), 1);
 			}
 			else if (bin[j] == '1')
 			{
 				if (kill(pid, SIGUSR1) != 0)
-					return (ft_printf("Error\nSignal error"), 1);
+					return (ft_printf("Error\nSignal fail"), 1);
 			}
 			temp();
 			j++;
@@ -52,28 +52,18 @@ int	send_msg(int pid, int j, size_t i, char *str)
 	return (0);
 }
 
-int	send_len(int pid, int j, size_t len)
+int	end_msg(int pid)
 {
-	char	*bin;
+	int	i;
 
-	bin = ft_int_to_bin(len, 64);
-	j = 0;
-	while (bin[j])
+	i = 8;
+	while (i > 0)
 	{
-		if (bin[j] == '0')
-		{
-			if (kill(pid, SIGUSR2) != 0)
-				return (ft_printf("Error\nSignal error"), 1);
-		}
-		else if (bin[j] == '1')
-		{
-			if (kill(pid, SIGUSR1) != 0)
-				return (ft_printf("Error\nSignal error"), 1);
-		}
+		if (kill(pid, SIGUSR2) != 0)
+			return (ft_printf("Error\nSignal fail"), 1);
 		temp();
-		j++;
+		i--;
 	}
-	free(bin);
 	return (0);
 }
 
@@ -88,8 +78,8 @@ int	main(int argc, char **argv)
 	str = argv[2];
 	if (str[0] == '\0')
 		return (1);
-	if (send_len(pid, 0, ft_strlen(str)) == 1)
-		return (1);
 	if (send_msg(pid, 0, 0, str) == 1)
+		return (1);
+	if (end_msg(pid) == 1)
 		return (1);
 }
