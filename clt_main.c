@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 11:19:31 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 13:29:57 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\ninvalid number of args\n"));
 	pid = ft_atoi(argv[1]);
 	str = argv[2];
+	if (str[0] == '\0')
+		return (1);
 	if (send_len(pid, 0, ft_strlen(str)) == 1)
-		exit (0);
+		return (1);
 	if (send_msg(pid, 0, 0, str) == 1)
-		exit (0);
+		return (1);
 }

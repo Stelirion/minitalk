@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 12:29:51 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 13:25:57 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	action(int sig, siginfo_t *info, void *context)
 		receve++;
 		if (receve == ft_bin_to_int(len_bin, 64))
 		{
-			ft_printf("%s\n", str);
+			ft_printf("%s", str);
 			if (ft_strncmp(str, "quit", 10) == 0)
 				exit(0);
 			free(str);
