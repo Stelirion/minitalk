@@ -6,11 +6,22 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 09:28:15 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 10:30:12 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void temp(void)
+{
+	int	i;
+
+	i = 10;
+	while (i-- > 0)
+	{
+		usleep(10);
+	}
+}
 
 int	send_msg(int pid, int j, size_t i, char *str)
 {
@@ -32,7 +43,7 @@ int	send_msg(int pid, int j, size_t i, char *str)
 				if (kill(pid, SIGUSR1) != 0)
 					return (ft_printf("Error\nSignal error"));
 			}
-			usleep(100);
+			temp();
 			j++;
 		}
 		free(bin);
@@ -59,7 +70,7 @@ int	send_len(int pid, int j, size_t len)
 			if (kill(pid, SIGUSR1) != 0)
 				return (ft_printf("Error\nSignal error"));
 		}
-		usleep(100);
+		temp();
 		j++;
 	}
 	free(bin);
