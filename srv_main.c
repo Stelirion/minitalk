@@ -6,16 +6,30 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 17:02:11 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 17:19:35 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+char	*fill_str(char *str, char *new)
+{
+	char		chr[2];
+
+	if (!str)
+	{
+		str = malloc(sizeof(char));
+		str[0] = '\0';
+	}
+	chr[0] = (char)ft_bin_to_int(new, 8);
+	chr[1] = '\0';
+	str = ft_strjoin_free(str, chr);
+	return (str);
+}
+
 static void	action(int sig, siginfo_t *info, void *context)
 {
 	static char	new[8];
-	char		chr[2];
 	static int	byte;
 	static char	*str;
 
@@ -35,14 +49,7 @@ static void	action(int sig, siginfo_t *info, void *context)
 			kill(info->si_pid, SIGUSR1);
 			return ;
 		}
-		if (!str)
-		{
-			str = malloc(sizeof(char));
-			str[0] = '\0';
-		}
-		chr[0] = (char)ft_bin_to_int(new, 8);
-		chr[1] = '\0';
-		str = ft_strjoin_free(str, chr);
+		str = fill_str(str, new);
 		byte = 0;
 	}
 }
@@ -56,8 +63,10 @@ int	main(void)
 	ft_printf("PID : %i\n", server_pid);
 	s_sigaction.sa_sigaction = action;
 	s_sigaction.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &s_sigaction, 0);
-	sigaction(SIGUSR2, &s_sigaction, 0);
+	if (sigaction(SIGUSR1, &s_sigaction, 0) == -1)
+		return (ft_printf("Error\nsignal fail"));
+	if (sigaction(SIGUSR2, &s_sigaction, 0) == -1)
+		return (ft_printf("Error\nsignal fail"));
 	while (1)
 		pause();
 	return (0);
