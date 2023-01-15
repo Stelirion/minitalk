@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:23:52 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 17:19:35 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 18:10:36 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	main(void)
 	ft_printf("PID : %i\n", server_pid);
 	s_sigaction.sa_sigaction = action;
 	s_sigaction.sa_flags = SA_SIGINFO;
-	if (sigaction(SIGUSR1, &s_sigaction, 0) == -1)
+	if (sigaction(SIGUSR1, &s_sigaction, 0) < 0)
 		return (ft_printf("Error\nsignal fail"));
-	if (sigaction(SIGUSR2, &s_sigaction, 0) == -1)
+	if (sigaction(SIGUSR2, &s_sigaction, 0) < 0)
 		return (ft_printf("Error\nsignal fail"));
 	while (1)
 		pause();

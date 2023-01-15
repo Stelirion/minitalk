@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:54:27 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/01/15 17:14:04 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/01/15 18:09:30 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ int	main(int argc, char **argv)
 
 	s_sigaction.sa_sigaction = action;
 	s_sigaction.sa_flags = SA_SIGINFO;
-	if (sigaction(SIGUSR1, &s_sigaction, 0) == -1)
-		return (ft_printf("Error\nsignal fail"));
+	if (sigaction(SIGUSR1, &s_sigaction, 0) < 0)
+		return (ft_printf("Error\nsignal fail"), 1);
 	if (argc != 3)
 		return (ft_printf("Error\ninvalid number of args\n"));
 	g_server_pid = ft_atoi(argv[1]);
